@@ -9,12 +9,6 @@ context("Automatisation de test pour un site e-commerce", () => {
           .trigger("mouseover")
           .click();
         cy.get("dd > .items > :nth-child(1) > a").click();
-        // cy.get(
-        //   ".swatch-opt-1812 > .size > .swatch-attribute-options > #option-label-size-143-item-169"
-        // ).click();
-        // cy.get(
-        //   ".swatch-opt-1812 > .swatch-attribute.color > .swatch-attribute-options > #option-label-color-93-item-60"
-        // ).click();
       });
     });
 
