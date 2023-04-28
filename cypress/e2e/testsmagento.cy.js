@@ -19,7 +19,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
 
     describe("Ajouter un produit au panier", () => {
-      it("le produit devrait être ajouté au panier", () => {
+      it("le produit devrait être ajouté au panierclea", () => {
         cy.get('[href="https://magento.softwaretestingboard.com/women.html"]')
           .trigger("mouseover")
           .click();
