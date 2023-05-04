@@ -17,6 +17,6 @@ context("Automatisation de test pour un site e-commerce", () => {
         .trigger("mouseover")
         .click();
       cy.url().should("include", "tops-women");
+      });
     });
   });
-});
