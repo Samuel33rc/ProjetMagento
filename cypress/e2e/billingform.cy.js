@@ -44,7 +44,7 @@ context("Automatisation de test pour un site e-commerce", () => {
       cy.get(".update").click();
       cy.wait(13000);
       cy.get(".checkout-methods-items > :nth-child(1) > .action").click();
-      cy.wait(3000);
+      cy.wait(6000);
       cy.get(
         "#customer-email-fieldset > .required > .control > #customer-email"
       ).type(faker.internet.email());
