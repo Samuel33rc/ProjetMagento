@@ -198,7 +198,14 @@ context("Automatisation de test pour un site e-commerce", () => {
         .should("be.visible")
         .click();
       cy.wait(5000);
-      cy.get(".showcart").invoke("show").click();
+      cy.get(".showcart").invoke("show").should("be.visible")
+        .click();
+      cy.get('.count')
+        .should((element) => {
+          expect(element[0].innerText).to.eql("1");
+        })
+      cy.get('#mini-cart > .item > :nth-child(1) > .product-item-photo > .product-image-container > .product-image-wrapper > .product-image-photo').should("be.visible")
+
       cy.wait(5000);
       cy.get(":nth-child(7) > .secondary").should("be.visible").click();
       cy.wait(2000);
