@@ -29,7 +29,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Ajouter un produit au panier", () => {
+  describe("Ajouter un produit au panier", () => {
     it("le produit devrait être ajouté au panier", () => {
       cy.get('[href="https://magento.softwaretestingboard.com/women.html"]')
         .should(($el) => {
@@ -72,7 +72,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Accéder et modifier le panier", () => {
+  describe("Accéder et modifier le panier", () => {
     it("le sous-total et le total devraient se mettre à jour", () => {
       cy.get(
         '[href="https://magento.softwaretestingboard.com/women.html"]'
@@ -102,9 +102,10 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Remplir les informations de facturation et de livraison", () => {
+  describe("Remplir les informations de facturation et de livraison", () => {
     it("Les informations de facturations pré-remplies s'affichent", () => {
-      cy.get(
+        cy.intercept("https://magento.softwaretestingboard.com/checkout/cart/updateItemQty/").as("updateQtyItem");
+        cy.get(
         '[href="https://magento.softwaretestingboard.com/women.html"]'
       ).click();
       cy.wait(2000);
@@ -129,7 +130,12 @@ context("Automatisation de test pour un site e-commerce", () => {
         .trigger("change");
       cy.wait(2000);
       cy.get(".update").click();
-      cy.wait(13000);
+      // On recherche une solution pour remplacer le gros wait après l'update du panier
+      // On remplace le gros cy.wait de 13 secondes par un cy.wait de la requête Api updateItemQty
+      cy.wait("@updateQtyItem", {timeout: 7000}).its("response.statusCode").should("eq", 200);
+      //cy.get('.mark > strong').should("be.visible");
+      cy.get('.loader > img').should("not.be.visible");
+      //cy.wait(13000);
       cy.get(".checkout-methods-items > :nth-child(1) > .action").click();
       cy.wait(3000);
       cy.get(
@@ -147,8 +153,9 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Valider la commande", () => {
+  describe.only("Valider la commande", () => {
     it("Un message de confirmation de commande s'affiche", () => {
+        cy.intercept("https://magento.softwaretestingboard.com/checkout/cart/updateItemQty/").as("updateQtyItem");
       cy.get('[href="https://magento.softwaretestingboard.com/women.html"]')
         .should(($el) => {
           expect($el[0].textContent).to.eql("Women");
@@ -189,7 +196,14 @@ context("Automatisation de test pour un site e-commerce", () => {
         .should("be.visible")
         .click();
       cy.wait(5000);
-      cy.get(".showcart").invoke("show").click();
+      cy.get(".showcart").invoke("show").should("be.visible")
+        .click();
+      cy.get('.count')
+        .should((element) => {
+          expect(element[0].innerText).to.eql("1");
+        })
+      cy.get('#mini-cart > .item > :nth-child(1) > .product-item-photo > .product-image-container > .product-image-wrapper > .product-image-photo').should("be.visible")
+
       cy.wait(5000);
       cy.get(":nth-child(7) > .secondary").should("be.visible").click();
       cy.wait(2000);
@@ -198,7 +212,12 @@ context("Automatisation de test pour un site e-commerce", () => {
         .trigger("change");
       cy.wait(2000);
       cy.get(".update").click();
-      cy.wait(13000);
+      // On recherche une solution pour remplacer le gros wait après l'update du panier
+      // On remplace le gros cy.wait de 13 secondes par un cy.wait de la requête Api updateItemQty
+      cy.wait("@updateQtyItem", {timeout: 7000}).its("response.statusCode").should("eq", 200);
+      //cy.get('.mark > strong').should("be.visible");
+      cy.get('.loader > img').should("not.be.visible");
+      //cy.wait(13000);
       cy.get(".checkout-methods-items > :nth-child(1) > .action").click();
       cy.wait(3000);
       cy.get(
