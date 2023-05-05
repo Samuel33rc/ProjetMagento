@@ -31,7 +31,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Ajouter un produit au panier", () => {
+  describe("Ajouter un produit au panier", () => {
     it("le produit devrait être ajouté au panier", () => {
       cy.get('[href="https://magento.softwaretestingboard.com/women.html"]')
         .should(($el) => {
@@ -74,7 +74,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Accéder et modifier le panier", () => {
+  describe("Accéder et modifier le panier", () => {
     it("le sous-total et le total devraient se mettre à jour", () => {
       cy.get(
         '[href="https://magento.softwaretestingboard.com/women.html"]'
@@ -104,7 +104,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Remplir les informations de facturation et de livraison", () => {
+  describe("Remplir les informations de facturation et de livraison", () => {
     it("Les informations de facturations pré-remplies s'affichent", () => {
       cy.get(
         '[href="https://magento.softwaretestingboard.com/women.html"]'
@@ -149,7 +149,7 @@ context("Automatisation de test pour un site e-commerce", () => {
     });
   });
 
-  describe.skip("Valider la commande", () => {
+  describe.only("Valider la commande", () => {
     it("Un message de confirmation de commande s'affiche", () => {
       cy.get('[href="https://magento.softwaretestingboard.com/women.html"]')
         .should(($el) => {
@@ -191,7 +191,14 @@ context("Automatisation de test pour un site e-commerce", () => {
         .should("be.visible")
         .click();
       cy.wait(5000);
-      cy.get(".showcart").invoke("show").click();
+      cy.get(".showcart").invoke("show").should("be.visible")
+        .click();
+      cy.get('.count')
+        .should((element) => {
+          expect(element[0].innerText).to.eql("1");
+        })
+      cy.get('#mini-cart > .item > :nth-child(1) > .product-item-photo > .product-image-container > .product-image-wrapper > .product-image-photo').should("be.visible")
+
       cy.wait(5000);
       cy.get(":nth-child(7) > .secondary").should("be.visible").click();
       cy.wait(2000);
