@@ -110,6 +110,7 @@ context("Automatisation de test pour un site e-commerce", () => {
       cy.intercept('https://magento.softwaretestingboard.com/rest/default/V1/guest-carts/*/estimate-shipping-methods').as('shipPrices')
       cy.wait('@shipPrices').its('response.statusCode').should('eq', 200);
       cy.get('.button').click();
+      cy.get('.payment-method-content > :nth-child(4) > div.primary > .action').click();
       //   cy.wait(3000);
         cy.get(".base").should("have.text", "Thank you for your purchase!");
     });
