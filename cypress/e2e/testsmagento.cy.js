@@ -215,8 +215,8 @@ context("Automatisation de test pour un site e-commerce", () => {
       // On recherche une solution pour remplacer le gros wait après l'update du panier
       // On remplace le gros cy.wait de 13 secondes par un cy.wait de la requête Api updateItemQty
       cy.wait("@updateQtyItem", {timeout: 7000}).its("response.statusCode").should("eq", 200);
-      //cy.get('.mark > strong').should("be.visible");
-      cy.get('.loader > img').should("not.be.visible");
+      cy.get('.mark > strong').should("be.visible");
+      //cy.get('.loader > img').should("not.be.visible");
       //cy.wait(13000);
       cy.get(".checkout-methods-items > :nth-child(1) > .action").click();
       cy.wait(3000);
