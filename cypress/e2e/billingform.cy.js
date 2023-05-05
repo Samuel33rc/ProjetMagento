@@ -68,7 +68,7 @@ context("Automatisation de test pour un site e-commerce", () => {
       cy.get('[name="billingAddresscheckmo.country_id"]').within(() => {
         cy.get('[name="country_id"]').select("JP");
     })
-      cy.get('[name="billingAddresscheckmo.telephone"]').type(faker.random.numeric(10));
+      cy.get('[name="billingAddresscheckmo.telephone"]').type(phone);
       cy.wait(3000);
       cy.get(".action-update").click();
       cy.wait(2000);

@@ -2,9 +2,7 @@ import { faker } from "@faker-js/faker";
 
 context("Automatisation de test pour un site e-commerce", () => {
   beforeEach(() => {
-    cy.fixture("urls").then((urls) => {
-      cy.visit(urls.baseUrl);
-    });
+      cy.visit('/');
     cy.title().should("eq", "Home Page");
   });
 
