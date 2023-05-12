@@ -6,6 +6,10 @@ node_modules/
 #Ignore videos/screenshots
 videos/
 screenshots/
+
 #Ignore config file
 package-lock.json
 package.json
+
+#Ignore a testing file
+testing.cy.js
